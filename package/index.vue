@@ -102,6 +102,7 @@ export default {
     // 生成实例
     this.modeler = new Modeler({
       container: this.$refs.canvas,
+      keyboard: { bindTo: document},
       additionalModules: [
         {
           translate: ['value', customTranslate]
@@ -156,6 +157,7 @@ export default {
         this.adjustPalette()
         this.fitViewport()
         // this.fillColor()
+
       } catch (err) {
         console.error(err.message, err.warnings)
       }
@@ -191,6 +193,8 @@ export default {
               width: '100%',
               padding: '5px'
             }
+            debugger;
+            console.log(control.className)
             if (
               control.className &&
               control.dataset &&
@@ -202,8 +206,13 @@ export default {
               control.innerHTML = `<div style='font-size: 14px;font-weight:500;margin-left:15px;'>${
                 controlProps['title']
               }</div>`
+
               for (var csKey in controlStyle) {
                 control.style[csKey] = controlStyle[csKey]
+              }
+
+              if(control.className === "entry bpmn-icon-intermediate-event-none"){
+                control.style['display']='none'
               }
             }
           }
@@ -332,6 +341,10 @@ export default {
 @import "~bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
 @import "~bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
 @import "~bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
+
+.bpmn-icon-intermediate-event-none{
+  display: none;
+}
 .view-mode {
   .el-header, .el-aside, .djs-palette, .bjs-powered-by {
     display: none;
